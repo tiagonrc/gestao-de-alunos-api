@@ -1,6 +1,7 @@
 name: Testes de API
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
