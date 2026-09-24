@@ -1,0 +1,15 @@
+{
+  "admin": { "email": "admin@escola.com", "senha": "admin123" },
+  "cenarios": [
+    {
+      "aluno": { "nome": "Mariana Oliveira", "senha": "mariana2026" },
+      "disciplinaId": "disciplina-matematica",
+      "trabalho": { "titulo": "Lista de exercícios de álgebra", "descricao": "Resolução dos exercícios do primeiro bimestre" }
+    },
+    {
+      "aluno": { "nome": "Pedro Martins", "senha": "pedro2026" },
+      "disciplinaId": "disciplina-historia",
+      "trabalho": { "titulo": "Linha do tempo da Revolução Industrial", "descricao": "Pesquisa sobre a primeira e a segunda revolução" }
+    }
+  ]
+}

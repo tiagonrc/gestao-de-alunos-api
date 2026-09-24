@@ -30,6 +30,7 @@ banco está vazio (veja [Dados fake pré-carregados](#dados-fake-pré-carregados
 ## Stack utilizada
 
 - **Node.js** com módulos ES (`"type": "module"` no `package.json`)
+- **Dotenv** — carrega as variáveis locais do arquivo `.env`
 - **Express** — framework web e roteamento
 - **MongoDB** com **Mongoose** — persistência dos dados (alunos, disciplinas, matrículas, notas e
   trabalhos)
@@ -80,12 +81,15 @@ docs/
 
 Pré-requisitos:
 
-- Node.js 18+ (usa `crypto.randomUUID`, disponível nativamente).
+- Node.js 22+ (os testes usam importação de JSON em módulos ES).
 - Uma instância do **MongoDB** acessível (local ou remota).
 
 ```bash
 # instalar dependências
 npm install
+
+# opcional: configure o banco e o segredo JWT no arquivo .env
+cp .env.example .env
 
 # subir em modo produção
 npm start
@@ -110,6 +114,23 @@ MONGODB_URI="mongodb://usuario:senha@host:27017/nome-do-banco" npm start
 Na primeira execução com o banco vazio, a API popula automaticamente as coleções com o conjunto de
 dados fake descrito em [Dados fake pré-carregados](#dados-fake-pré-carregados). Em execuções
 seguintes, os dados já existentes são preservados.
+
+### Testes automatizados
+
+Execute `npm test` com MongoDB disponível. Use um banco próprio para testes:
+
+```bash
+cp .env.example .env
+npm ci
+npm test
+```
+
+Os cenários em `test/fixtures/cenarios.json` alimentam os testes de ponta a ponta com Mocha,
+SuperTest e Chai. O fluxo autentica o administrador, cadastra e matricula um aluno, autentica
+esse aluno e registra e consulta a entrega de um trabalho. Os logins reutilizáveis ficam em
+`test/helpers/login.js`; os registros criados são removidos ao fim de cada cenário.
+O GitHub Actions executa `npm ci` e `npm test` com o serviço MongoDB em cada push e pull request
+para `main`.
 
 ## Documentação da API (Swagger)
 
